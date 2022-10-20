@@ -1,5 +1,4 @@
-package com.example.OpenFeign;
-
+package com.example.OpenFeign.controller.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,13 +6,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
-import java.util.List;
-
-@Getter
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-//@XmlRootElement
-public class MgniListResponse {
-    List<Mgni> mgniList;
+public class SearchMgniRequest {
+    private String id;
+    private String kacType;
+    private String ccy;
 }

@@ -1,13 +1,37 @@
 package com.example.OpenFeign;
 
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import com.example.OpenFeign.controller.dto.MgniListResponse;
+import com.example.OpenFeign.controller.dto.SearchMgniRequest;
+import com.example.OpenFeign.entity.Mgni;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-@FeignClient(name = "leo",url = "http://localhost:8080/produce")
-public interface OpenFeign {
-@RequestMapping(method = RequestMethod.GET)
-    public MgniListResponse getAllMgni();
+import java.util.List;
 
+@Service
+public class OpenFeign {
+    @Autowired
+    private OpenFeignInterface openFeignInterface;
+
+    private static ObjectMapper mapper = new ObjectMapper();
+
+//    @Scheduled(cron = "0/10 * * * * *")
+    public void getAllMgni() throws JsonProcessingException {
+        MgniListResponse mgniListResponse = openFeignInterface.getAllMgni();
+        mapper.findAndRegisterModules();
+        String mgniList = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(mgniListResponse);
+        System.out.println(mgniList);
+    }
+
+    //---------------------------------------------------restTemple
+
+    public void searchTargetMgni(SearchMgniRequest request) throws JsonProcessingException {
+        RestTemplate restTemplate = new RestTemplate();
+        List<Mgni>mgniList=restTemplate.postForObject("http://localhost:8080/produce/search",request,List.class);
+        System.out.println(mgniList);
+    }
 
 }

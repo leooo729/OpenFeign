@@ -1,5 +1,6 @@
-package com.example.OpenFeign;
+package com.example.OpenFeign.entity;
 
+import com.example.OpenFeign.entity.Cashi;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

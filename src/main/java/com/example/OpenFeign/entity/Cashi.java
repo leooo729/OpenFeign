@@ -1,4 +1,4 @@
-package com.example.OpenFeign;
+package com.example.OpenFeign.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
